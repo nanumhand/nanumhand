@@ -15,6 +15,7 @@ public class BoardVO {
   private int hit_view;
   private int hit_like;
 
+
   public Integer getSeq() {
 	return seq;
 }

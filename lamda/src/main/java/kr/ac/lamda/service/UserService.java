@@ -10,18 +10,18 @@ public interface UserService {
 
 	  public void create(UserVO vo) throws Exception;
 
-	  public UserVO read(Integer seq) throws Exception;
+	  public UserVO read_error(String user_id) throws Exception;
+	  
+	  public UserVO logincheck(UserVO vo) throws Exception;
+	  
+	  public UserVO idcheck(String user_id) throws Exception;
+	  
+	  public UserVO emailcheck(String email) throws Exception;
 
-	  public void update(UserVO vo) throws Exception;
-
-	  public void delete(Integer seq) throws Exception;
-
-	  public List<UserVO> listAll() throws Exception;
-
-	  public List<UserVO> listPage(int page) throws Exception;
-
-	  public List<UserVO> listCriteria(Criteria cri) throws Exception;
-
-	  public int countPaging(Criteria cri) throws Exception;
+	  public void init_errorcnt(String user_id) throws Exception;
+	  
+	  public void plus_errorcnt(String user_id) throws Exception;
+	  
+	  public void banned_date(String user_id) throws Exception;
 	  
 }

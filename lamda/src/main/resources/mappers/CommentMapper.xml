@@ -5,145 +5,39 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="kr.ac.lamda.mapper.CommentMapper">
 
-	<insert id="create">
-		insert into tbl_comment (title, content, writer)
-		values(#{title},#{content}, #{writer})
-	</insert>
-
- <select id="read" resultType="kr.ac.lamda.domain.CommentVO">
- select 
-   bno, title, content, writer, regdate, viewcnt, likecnt, replycnt
- from 
-   tbl_comment 
- where bno = #{bno}
- </select>
-
-<update id="views">
- update tbl_comment set viewcnt=viewcnt+1 
- where bno = #{bno}
- </update>
- 
- <update id="likes">
- update tbl_comment set likecnt=likecnt+1 
- where bno = #{bno}
- </update>
-
-	<update id="update">
-		update tbl_comment set title =#{title}, content =#{content}
-		where bno = #{bno}
-	</update>
-
-	<delete id="delete">
-		delete from tbl_comment where bno = #{bno}
-	</delete>
+<insert id="create">
+insert into tbl_comment(seq, seq_user, parent, memo, seq_board) 
+values(tbl_comment_seq.nextval,#{seq_user},#{parent}, #{memo},#{seq_board})
+</insert>
 	
-	<select id="listAll" resultType="kr.ac.lamda.domain.CommentVO">
- <![CDATA[
- select 
-   bno, title, content, writer, regdate, viewcnt, likecnt 
- from 
-   tbl_comment 
- where bno > 0 
- order by bno desc, regdate desc
- ]]>
-	</select>
-
-	<select id="listPage" resultType="CommentVO">
- <![CDATA[
- select 
-   bno, title, content, writer, regdate, viewcnt ,likecnt, replycnt
- from 
-   tbl_comment 
- where bno > 0 
- order by bno desc, regdate desc
- limit #{page}, 10
- ]]>
-	</select>
-
-	<select id="listCriteria" resultType="CommentVO">
- <![CDATA[
- select 
-   bno, title, content, writer, regdate, viewcnt , likecnt, replycnt
- from 
-   tbl_comment 
- where bno > 0 
- order by bno desc, regdate desc
- limit #{pageStart}, #{perPageNum}
- ]]>
-	</select>
-
-
-
-
-
-
-	<select id="countPaging" resultType="int">
- <![CDATA[
- select 
-   count(bno) 
- from 
-   tbl_comment 
- where 
-   bno > 0 
- ]]>
-	</select>
-
-
-
-	<sql id="search">
-		<if test="searchType != null">
-			<if test="searchType == 't'.toString()">
-				and title like CONCAT('%', #{keyword}, '%')
-			</if>
-			<if test="searchType == 'c'.toString()">
-				and content like CONCAT('%', #{keyword}, '%')
-			</if>
-			<if test="searchType == 'w'.toString()">
-				and writer like CONCAT('%', #{keyword}, '%')
-			</if>
-			<if test="searchType == 'tc'.toString()">
-				and ( title like CONCAT('%', #{keyword}, '%') OR content like
-				CONCAT('%', #{keyword}, '%'))
-			</if>
-			<if test="searchType == 'cw'.toString()">
-				and ( content like CONCAT('%', #{keyword}, '%') OR writer like
-				CONCAT('%', #{keyword}, '%'))
-			</if>
-			<if test="searchType == 'tcw'.toString()">
-				and ( title like CONCAT('%', #{keyword}, '%')
-				OR
-				content like CONCAT('%', #{keyword}, '%')
-				OR
-				writer like CONCAT('%', #{keyword}, '%'))
-			</if>
-		</if>
-	</sql>
-
-	<select id="listSearch" resultType="CommentVO">
-<![CDATA[  
-  select * 
-  from tbl_comment 
-  where bno > 0 
-]]>
-
-		<include refid="search"></include>
-  
-<![CDATA[    
-  order by bno desc
-  limit #{pageStart}, #{perPageNum}
-]]>
-	</select>
-
-	<select id="listSearchCount" resultType="int">
-<![CDATA[  
-  select count(bno) 
-  from tbl_comment 
-  where bno > 0 
-]]>
-		<include refid="search"></include>
-
-	</select>
-
-
+<select id="countPaging" resultType="int">
+select count(seq) from tbl_comment 
+where seq_board=#{seq_board}
+</select>
  
+<select id="listPage" resultType="kr.ac.lamda.domain.CommentVO">
+ <![CDATA[
+ select * from(
+ 	select rownum as R, C.* from(
+ 		select level as indent, A.user_id, B.* 
+ 		from tbl_user A, tbl_comment B 
+ 		where A.seq = B.seq_user and B.seq_board=#{seq_board}
+ 		start with B.parent=0 connect by prior B.seq = B.parent 
+ 		order siblings by B.create_date desc) 
+ 	C where rownum <=(#{page}*5)) 
+ where R >=(#{page}*5-4)
+ ]]>
+</select>
+
+<delete id="delete">
+		delete from tbl_comment where seq = #{seq_comment}
+</delete>
+
+<update id="update_fordelete">
+update tbl_comment 
+set memo='삭제된 글', 
+modify_date=to_char(sysdate, 'YYYY-MM-DD HH24:MI:SS') 
+where seq=#{seq_comment}
+</update>
+	
 </mapper>

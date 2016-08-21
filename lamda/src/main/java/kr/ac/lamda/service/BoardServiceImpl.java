@@ -23,48 +23,40 @@ public class BoardServiceImpl implements BoardService {
   }
 
   @Override
-  public void updateHits(Integer seq) throws Exception{
-	 dao.updateHits(seq);
+  public void updateHits(Integer seq_board) throws Exception{
+	 dao.updateHits(seq_board);
   }
   
   @Override
-  public void updateLike(Integer seq) throws Exception{
-	 dao.updateLike(seq);
+  public void updateLike(Integer seq_board) throws Exception{
+	 dao.updateLike(seq_board);
   }
   
 
   @Transactional(isolation=Isolation.READ_COMMITTED)
   @Override
-  public BoardVO read(Integer seq) throws Exception {
-    dao.updateHits(seq);
-    return dao.read(seq);
+  public BoardVO read(Integer seq_board) throws Exception {
+    dao.updateHits(seq_board);
+    return dao.read(seq_board);
   }
 
   
   @Override
-  public void update(BoardVO board) throws Exception {
-    dao.update(board);
+  public void update(BoardVO vo) throws Exception {
+    dao.update(vo);
   }
 
   @Override
-  public void delete(Integer seq) throws Exception {
-    dao.delete(seq);
+  public void delete(Integer seq_board) throws Exception {
+    dao.delete(seq_board);
   }
 
-  @Override
-  public List<BoardVO> listAll() throws Exception {
-    return dao.listAll();
-  }
+
   
   @Override
   public List<BoardVO> listPage(int page) throws Exception {
 	    return dao.listPage(page);
 	  }
-  @Override
-  public List<BoardVO> listCriteria(Criteria cri) throws Exception {
-
-    return dao.listCriteria(cri);
-  }
 
   @Override
   public int countPaging(Criteria cri) throws Exception {

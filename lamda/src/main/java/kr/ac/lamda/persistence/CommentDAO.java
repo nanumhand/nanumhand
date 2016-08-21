@@ -9,18 +9,12 @@ import kr.ac.lamda.domain.Criteria;
 public interface CommentDAO {
 
   public void create(CommentVO vo) throws Exception;
+ 
+  public void update_fordelete(int seq_comment) throws Exception;
 
-  public CommentVO read(Integer seq) throws Exception;
+  public void delete(Integer seq_comment) throws Exception;  
 
-  public void update(CommentVO vo) throws Exception;
-
-  public void delete(Integer seq) throws Exception;
-
-  public List<CommentVO> listAll() throws Exception;
-
-  public List<CommentVO> listPage(int page) throws Exception;
-
-  public List<CommentVO> listCriteria(Criteria cri) throws Exception;
+  public List<CommentVO> listPage(CommentVO vo) throws Exception;
 
   public int countPaging(Criteria cri) throws Exception;
   

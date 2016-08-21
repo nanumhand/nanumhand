@@ -1,0 +1,244 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="css/smart_editor2.css" rel="stylesheet" type="text/css">
+
+<style type="text/css">
+	body { margin: 10px; }
+</style>
+<script type="text/javascript" src="./js/lib/jindo2.all.js" charset="utf-8"></script>
+<script type="text/javascript" src="./js/lib/jindo_component.js" charset="utf-8"></script>
+<script type="text/javascript" src="./js/SE2M_Configuration.js" charset="utf-8"></script>	<!-- 설정 파일 -->
+<script type="text/javascript" src="./js/SE2BasicCreator.js" charset="utf-8"></script>
+<script type="text/javascript" src="./js/smarteditor2.min.js" charset="utf-8"></script>
+
+<!-- 사진첨부샘플  --> 
+<script type="text/javascript" src="./sample/js/plugin/hp_SE2M_AttachQuickPhoto.js" charset="utf-8"></script>
+</head>
+<body>
+
+
+
+<!-- SE2 Markup Start -->	
+<div  id="smart_editor2">
+	<div  id="smart_editor2_content">
+		<div   class="se2_tool" id="se2_tool">
+			
+			<div  class="se2_text_tool husky_seditor_text_tool">
+			<!--<ul class="se2_font_type">-->
+				<span class="husky_se2m_current_fontName"></span>
+					<!-- 글꼴 레이어 -->
+					<div class="se2_layer husky_se_fontName_layer" style="display:none">
+						<div class="se2_in_layer">
+							<ul class="se2_l_font_fam">
+							
+							
+							
+							</ul>
+						</div>
+					</div>
+					<!-- //글꼴 레이어 -->
+				
+
+				<span class="husky_se2m_current_fontSize"></span>
+					<!-- 폰트 사이즈 레이어 -->
+					<div class="se2_layer husky_se_fontSize_layer">
+						
+					</div>
+				
+
+				
+
+				
+
+				<span class="selected_color husky_se2m_fontColor_lastUsed" style="background-color:#4477f9"></span>
+					<!-- 글자색 -->
+					<div class="se2_layer husky_se2m_fontcolor_layer" style="display:none">
+						<div class="se2_in_layer husky_se2m_fontcolor_paletteHolder">
+							<div class="se2_palette husky_se2m_color_palette">
+								
+								
+								
+															
+								<div class="se2_palette2 husky_se2m_color_palette_colorpicker">
+									
+									<div class="se2_gradation1 husky_se2m_cp_colpanel"></div>
+									<div class="se2_gradation2 husky_se2m_cp_huepanel"></div>
+								</div>
+							</div>
+                        </div>
+					</div>
+                    
+				<span class="selected_color husky_se2m_BGColor_lastUsed" style="background-color:#4477f9"></span>
+					
+				
+
+				
+					
+
+
+				
+				
+				<li class="husky_seditor_ui_table">
+					<div class="se2_layer husky_se2m_table_layer" style="margin-left:-171px">
+						<div class="se2_in_layer">
+							<div class="se2_table_set">
+								
+								
+									<dl class="se2_cell_num">
+									
+									<dd><input id="col" name="" type="text" maxlength="2" value="4" class="input_ty2">
+										
+									</dd>
+									</dl>
+									
+								
+								<fieldset>
+									
+									<dl class="se2_t_proper1">
+									<dt><input type="radio" id="se2_tbp1" name="se2_tbp" checked></dt>
+									<dd>
+										<dl class="se2_t_proper1_1">
+										
+										<dd><div class="se2_select_ty1"><span class="se2_b_style3 husky_se2m_table_border_style_preview"></span><button type="button" title="더보기" class="se2_view_more"></button></div>
+											<!-- 레이어 : 테두리스타일 -->
+											<div class="se2_layer_b_style husky_se2m_table_border_style_layer" style="display:none">
+												<ul>
+												<span class="se2m_no_border">테두리없음</span>
+												
+												</ul>
+											</div>
+											<!-- //레이어 : 테두리스타일 -->
+										</dd>
+										</dl>
+										<dl class="se2_t_proper1_1 se2_t_proper1_2">
+										
+										<dd><input id="se2_b_width" name="" type="text" maxlength="2" value="1" class="input_ty1">							
+											
+										</dd>
+										</dl>
+										<dl class="se2_t_proper1_1 se2_t_proper1_3">
+										
+										<dd><input id="se2_b_color" name="" type="text" maxlength="7" value="#cccccc" class="input_ty3"><span class="se2_pre_color"><button type="button" style="background:#cccccc;"></button></span>	
+										<!-- 레이어 : 테두리색 -->
+											<div class="se2_layer se2_b_t_b1" style="clear:both;display:none;position:absolute;top:20px;left:-147px;">
+												<div class="se2_in_layer husky_se2m_table_border_color_pallet">
+												</div>
+											</div>
+										<!-- //레이어 : 테두리색-->
+										</dd>
+										</dl>
+										<div class="se2_t_dim0"></div><!-- 테두리 없음일때 딤드레이어 -->
+										<dl class="se2_t_proper1_1 se2_t_proper1_4">
+										
+										<dd><input id="se2_cellbg" name="" type="text" maxlength="7" value="#ffffff" class="input_ty3"><span class="se2_pre_color"><button type="button" style="background:#ffffff;"></button></span>
+										<!-- 레이어 : 셀배경색 -->
+										<div class="se2_layer se2_b_t_b1" style="clear:both;display:none;position:absolute;top:20px;left:-147px;">
+											<div class="se2_in_layer husky_se2m_table_bgcolor_pallet">
+											</div>
+										</div>
+										<!-- //레이어 : 셀배경색-->
+										</dd>
+										</dl>
+									</dd>
+									</dl>
+								</fieldset>
+								
+									
+									<input type="radio" id="se2_tbp2" name="se2_tbp">
+									<div class="se2_select_ty2"><span class="se2_t_style1 husky_se2m_table_style_preview"></span><button type="button" title="더보기" class="se2_view_more"></button></div>
+										<!-- 레이어 : 표템플릿선택 -->
+										<div class="se2_layer_t_style husky_se2m_table_style_layer" style="display:none">
+											
+										</div>
+										<!-- //레이어 : 표템플릿선택 -->
+									
+								<p class="se2_btn_area">
+									<button type="button" class="se2_apply"></button>
+								</p>
+								<!-- 딤드레이어 -->
+								<div class="se2_t_dim3"></div>
+								<!-- //딤드레이어 -->
+							</div>
+						</div>
+					</div>
+					<!-- //표 -->
+					<!--//@lazyload_html-->
+				</li>
+
+				
+</ul>
+				<ul class="se2_multy">
+					<li class="se2_mn husky_seditor_ui_photo_attach"><button type="button" class="se2_photo ico_btn"><span class="se2_icon"></span>사진</button></li>
+				</ul>
+			</div>
+			<!-- //704이상 -->
+		</div>
+		
+		<div class="se2_input_area husky_seditor_editing_area_container">
+			
+			
+			<iframe src="about:blank" id="se2_iframe" name="se2_iframe" class="se2_input_wysiwyg" width="400" height="200" title="글쓰기 영역 : 도구 모음은 ALT+F10을, 도움말은 ALT+0을 누르세요." frameborder="0" style="display:block;"></iframe>
+			<textarea name="" rows="4" cols="60" title="HTML 편집 모드" class="se2_input_syntax se2_input_htmlsrc" style="display:none;outline-style:none;resize:none"> </textarea>
+			<textarea name="" rows="4" cols="60" title="TEXT 편집 모드" class="se2_input_syntax se2_input_text" style="display:none;outline-style:none;resize:none;"> </textarea>
+			
+			
+						<div class="quick_wrap">
+				
+				<div class="q_table_wrap" style="z-index: 150;">
+				<button class="_fold se2_qmax q_open_table_full" style="position:absolute; display:none;top:340px;left:210px;z-index:30;" title="최대화" type="button"></button>
+				<div class="_full se2_qeditor se2_table_set" style="position:absolute;display:none;top:135px;left:661px;z-index:30;">
+					<div class="se2_qbar q_dragable"><span class="se2_qmini"><button title="최소화" class="q_open_table_fold"></button></span></div>
+					<div class="se2_qbody0">
+						<div class="se2_qbody">
+							<dl class="se2_qe1">
+							
+							</dl>
+							<div class="se2_qe2 se2_qe2_3"> 
+								
+								
+								
+								<span class="se2_pre_bgimg"></span>
+									
+								
+								
+								
+							</div>
+							
+							
+							
+								<div class="se2_qe3_table">
+								<div class="se2_select_ty2"></div>
+								
+								</div>
+							
+							
+							
+							
+						</div>
+					</div>
+				</div>
+				</div>
+				>
+			</div>
+		</div>
+		
+		<div class="se2_conversion_mode">
+			<button type="button" class="se2_inputarea_controller husky_seditor_editingArea_verticalResizer" title="입력창 크기 조절"><span></span></button>
+			
+			<button type="button" class="se2_to_editor"></button>
+			<button type="button" class="se2_to_html"></button>
+			<button type="button" class="se2_to_text"></button>
+			
+		</div>
+		
+	</div>
+</div>
+<!-- SE2 Markup End -->
+
+
+</body>
+</html>

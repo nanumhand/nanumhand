@@ -25,46 +25,29 @@ public class CommentDAOImpl implements CommentDAO {
     session.insert(namespace + ".create", vo);
   }
 
-  @Override
-  public CommentVO read(Integer seq) throws Exception {
-    return session.selectOne(namespace + ".read", seq);
-  }
-
-  
-  @Override
-  public void update(CommentVO vo) throws Exception {
-    session.update(namespace + ".update", vo);
+ @Override
+  public void update_fordelete(int seq_comment) throws Exception {
+    session.update(namespace + ".update", seq_comment);
   }
 
   @Override
-  public void delete(Integer seq) throws Exception {
-    session.delete(namespace + ".delete", seq);
+  public void delete(Integer seq_comment) throws Exception {
+    session.delete(namespace + ".delete", seq_comment);
   }
 
   @Override
-  public List<CommentVO> listAll() throws Exception {
-    return session.selectList(namespace + ".listAll");
-  }
+  public List<CommentVO> listPage(CommentVO vo) throws Exception {
 
-  @Override
-  public List<CommentVO> listPage(int page) throws Exception {
-
-    if (page <= 0) {
-      page = 1;
+    if (vo.getPage() <= 0) {
+    	vo.setPage(1);
     }
 
-    page = (page - 1) * 10;
+    vo.setPage((vo.getPage() - 1) * 10);
 
-    return session.selectList(namespace + ".listPage", page);
+    return session.selectList(namespace + ".listPage", vo);
   }
 
-  @Override
-  public List<CommentVO> listCriteria(Criteria cri) throws Exception {
-
-    return session.selectList(namespace + ".listCriteria", cri);
-  }
-
-  @Override
+ @Override
   public int countPaging(Criteria cri) throws Exception {
 
     return session.selectOne(namespace + ".countPaging", cri);

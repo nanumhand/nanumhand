@@ -18,47 +18,45 @@ public class UserServiceImpl implements UserService {
   private UserDAO dao;
 
   @Override
-  public void create(UserVO user) throws Exception {
-    dao.create(user);
+  public void create(UserVO vo) throws Exception {
+    dao.create(vo);
   }
 
  
-  @Transactional(isolation=Isolation.READ_COMMITTED)
-  @Override
-  public UserVO read(Integer seq) throws Exception {
-      return dao.read(seq);
+ @Override
+  public UserVO read_error(String user_id) throws Exception {
+      return dao.read_error(user_id);
   }
+ 
+ @Override
+ public UserVO logincheck(UserVO vo) throws Exception {
+     return dao.logincheck(vo);
+ }
+ 
+ @Override
+ public UserVO idcheck(String user_id) throws Exception {
+     return dao.idcheck(user_id);
+ }
+ 
+ @Override
+ public UserVO emailcheck(String email) throws Exception {
+     return dao.emailcheck(email);
+ }
 
   
   @Override
-  public void update(UserVO user) throws Exception {
-    dao.update(user);
-  }
-
-  @Override
-  public void delete(Integer seq) throws Exception {
-    dao.delete(seq);
-  }
-
-  @Override
-  public List<UserVO> listAll() throws Exception {
-    return dao.listAll();
+  public void init_errorcnt(String user_id) throws Exception {
+    dao.init_errorcnt(user_id);
   }
   
   @Override
-  public List<UserVO> listPage(int page) throws Exception {
-	    return dao.listPage(page);
-	  }
-  @Override
-  public List<UserVO> listCriteria(Criteria cri) throws Exception {
-
-    return dao.listCriteria(cri);
+  public void plus_errorcnt(String user_id) throws Exception {
+    dao.plus_errorcnt(user_id);
   }
-
+  
   @Override
-  public int countPaging(Criteria cri) throws Exception {
-
-    return dao.countPaging(cri);
+  public void banned_date(String user_id) throws Exception {
+    dao.banned_date(user_id);
   }
 
  }

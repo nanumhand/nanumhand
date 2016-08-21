@@ -26,47 +26,39 @@ public class UserDAOImpl implements UserDAO {
   }
 
   @Override
-  public UserVO read(Integer seq) throws Exception {
-    return session.selectOne(namespace + ".read", seq);
+  public UserVO read_error(String user_id) throws Exception {
+    return session.selectOne(namespace + ".read_error", user_id);
+  }
+  
+  @Override
+  public UserVO logincheck(UserVO vo) throws Exception {
+    return session.selectOne(namespace + ".logincheck", vo);
+  }
+  
+  @Override
+  public UserVO idcheck(String user_id) throws Exception {
+    return session.selectOne(namespace + ".idcheck", user_id);
+  }
+  
+  @Override
+  public UserVO emailcheck(String email) throws Exception {
+    return session.selectOne(namespace + ".emailcheck", email);
+  }
+  
+
+ @Override
+  public void init_errorcnt(String user_id) throws Exception {
+    session.update(namespace + ".init_errorcnt", user_id);
   }
 
  @Override
-  public void update(UserVO vo) throws Exception {
-    session.update(namespace + ".update", vo);
-  }
-
+ public void plus_errorcnt(String user_id) throws Exception {
+   session.update(namespace + ".plus_errorcnt", user_id);
+ }
+ 
   @Override
-  public void delete(Integer seq) throws Exception {
-    session.delete(namespace + ".delete", seq);
-  }
-
-  @Override
-  public List<UserVO> listAll() throws Exception {
-    return session.selectList(namespace + ".listAll");
-  }
-
-  @Override
-  public List<UserVO> listPage(int page) throws Exception {
-
-    if (page <= 0) {
-      page = 1;
-    }
-
-    page = (page - 1) * 10;
-
-    return session.selectList(namespace + ".listPage", page);
-  }
-
-  @Override
-  public List<UserVO> listCriteria(Criteria cri) throws Exception {
-
-    return session.selectList(namespace + ".listCriteria", cri);
-  }
-
-  @Override
-  public int countPaging(Criteria cri) throws Exception {
-
-    return session.selectOne(namespace + ".countPaging", cri);
+  public void banned_date(String user_id) throws Exception {
+    session.delete(namespace + ".banned_date", user_id);
   }
 
 

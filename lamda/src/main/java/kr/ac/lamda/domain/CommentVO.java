@@ -11,8 +11,19 @@ public class CommentVO {
   private String memo;
   private Date create_date;
   private Date modify_date;
+  private Integer page;
 
   
+public Integer getPage() {
+	return page;
+}
+
+
+public void setPage(Integer page) {
+	this.page = page;
+}
+
+
 public Integer getSeq() {
 	return seq;
 }
@@ -86,7 +97,7 @@ public void setModify_date(Date modify_date) {
 @Override
   public String toString() {
     return "BoardVO [seq=" + seq + ", parent=" + parent + ", seq_user=" + seq_user + ", seq_board=" + seq_board + 
-    		", memo=" + memo + ", create_date=" + create_date + ", modify_date=" + modify_date +"]";
+    		", memo=" + memo + ", create_date=" + create_date + ", modify_date=" + modify_date +", page=" + page +"]";
   }
 
 }

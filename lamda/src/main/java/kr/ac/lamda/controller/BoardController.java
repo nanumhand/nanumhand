@@ -30,71 +30,55 @@ public class BoardController {
   private BoardService service;
   
  
-  @RequestMapping(value = "/register", method = RequestMethod.GET)
-  public void registerGET(BoardVO board, Model model) throws Exception {
-
-    logger.info("register get ...........");
-  }
-
-
-  @RequestMapping(value = "/register", method = RequestMethod.POST)
-  public String registPOST(BoardVO board, RedirectAttributes rttr) throws Exception {
+  @RequestMapping(value = "/create", method = RequestMethod.POST)
+  public String registPOST(BoardVO vo, RedirectAttributes rttr) throws Exception {
 
     logger.info("regist post ...........");
-    logger.info(board.toString());
+    logger.info(vo.toString());
 
-    service.create(board);
-
-    Thread.sleep(5000);
+    service.create(vo);
     
     rttr.addFlashAttribute("msg", "success");
     rttr.addAttribute("page", 1);
-    rttr.addAttribute("perPageNum", 10);
     return "redirect:/board/listPage";
   }
 
- @RequestMapping(value = "/likecnt", method = RequestMethod.GET)
-  public void likecnt(@RequestParam("seq") int seq, Model model) throws Exception {
+ @RequestMapping(value = "/updateLike", method = RequestMethod.GET)
+  public void likecnt(@RequestParam("seq_board") int seq_board, Model model) throws Exception {
 
-	service.updateLike(seq);  
-    model.addAttribute(service.read(seq));
+	service.updateLike(seq_board);  
+    model.addAttribute(service.read(seq_board));
   }
   
   
   @RequestMapping(value = "/read", method = RequestMethod.GET)
-  public void read(@RequestParam("seq") int seq, Model model) throws Exception {
+  public void read(@RequestParam("seq_board") int seq_board, Model model) throws Exception {
 
-    model.addAttribute(service.read(seq));
-    service.updateHits(seq);
+    model.addAttribute(service.read(seq_board));
+    service.updateHits(seq_board);
   }
 
-  @RequestMapping(value = "/remove", method = RequestMethod.POST)
-  public String remove(@RequestParam("seq") int seq, RedirectAttributes rttr) throws Exception {
+  @RequestMapping(value = "/delete", method = RequestMethod.POST)
+  public String remove(@RequestParam("seq_board") int seq_board, RedirectAttributes rttr) throws Exception {
 
-    service.delete(seq);
+    service.delete(seq_board);
 
     rttr.addFlashAttribute("msg", "SUCCESS");
     rttr.addAttribute("page", 1);
-    rttr.addAttribute("perPageNum", 10);
 
     return "redirect:/board/listPage";
   }
 
-  @RequestMapping(value = "/modify", method = RequestMethod.GET)
-  public void modifyGET(int seq, Model model) throws Exception {
+ 
 
-    model.addAttribute(service.read(seq));
-  }
-
-  @RequestMapping(value = "/modify", method = RequestMethod.POST)
-  public String modifyPOST(BoardVO board, RedirectAttributes rttr) throws Exception {
+  @RequestMapping(value = "/update", method = RequestMethod.POST)
+  public String modifyPOST(BoardVO vo, RedirectAttributes rttr) throws Exception {
 
     logger.info("mod post............");
 
-    service.update(board);
+    service.update(vo);
     rttr.addFlashAttribute("msg", "SUCCESS");
     rttr.addAttribute("page", 1);
-    rttr.addAttribute("perPageNum", 10);
 
     return "redirect:/board/listPage";
   }
@@ -113,13 +97,6 @@ public class BoardController {
     pageMaker.setTotalCount(service.countPaging(cri));
 
     model.addAttribute("pageMaker", pageMaker);
-  }
-
-  @RequestMapping(value = "/readPage", method = RequestMethod.GET)
-  public void read(@RequestParam("seq") int seq, @ModelAttribute("cri") Criteria cri, Model model) throws Exception {
-
-    model.addAttribute(service.read(seq));
-    service.updateHits(seq);
   }
 
  

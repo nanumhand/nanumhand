@@ -26,18 +26,18 @@ public class BoardDAOImpl implements BoardDAO {
   }
 
   @Override
-  public BoardVO read(Integer seq) throws Exception {
-    return session.selectOne(namespace + ".read", seq);
+  public BoardVO read(Integer seq_board) throws Exception {
+    return session.selectOne(namespace + ".read", seq_board);
   }
 
   @Override
-  public void updateHits(Integer seq) throws Exception{
-	  session.update(namespace + ".views", seq);
+  public void updateHits(Integer seq_board) throws Exception{
+	  session.update(namespace + ".updateHits", seq_board);
   }
   
   @Override
-  public void updateLike(Integer seq) throws Exception{
-	  session.update(namespace + ".likes", seq);
+  public void updateLike(Integer seq_board) throws Exception{
+	  session.update(namespace + ".updateLike", seq_board);
   }
   
   @Override
@@ -46,13 +46,8 @@ public class BoardDAOImpl implements BoardDAO {
   }
 
   @Override
-  public void delete(Integer seq) throws Exception {
-    session.delete(namespace + ".delete", seq);
-  }
-
-  @Override
-  public List<BoardVO> listAll() throws Exception {
-    return session.selectList(namespace + ".listAll");
+  public void delete(Integer seq_board) throws Exception {
+    session.delete(namespace + ".delete", seq_board);
   }
 
   @Override
@@ -66,12 +61,7 @@ public class BoardDAOImpl implements BoardDAO {
 
     return session.selectList(namespace + ".listPage", page);
   }
-
-  @Override
-  public List<BoardVO> listCriteria(Criteria cri) throws Exception {
-
-    return session.selectList(namespace + ".listCriteria", cri);
-  }
+  
 
   @Override
   public int countPaging(Criteria cri) throws Exception {

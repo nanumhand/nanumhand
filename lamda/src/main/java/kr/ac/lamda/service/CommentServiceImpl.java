@@ -18,45 +18,24 @@ public class CommentServiceImpl implements CommentService {
   private CommentDAO dao;
 
   @Override
-  public void create(CommentVO comment) throws Exception {
-    dao.create(comment);
-  }
-
-  
-  
-
-  @Transactional(isolation=Isolation.READ_COMMITTED)
-  @Override
-  public CommentVO read(Integer seq) throws Exception {
-    
-    return dao.read(seq);
-  }
-
-  
-  @Override
-  public void update(CommentVO comment) throws Exception {
-    dao.update(comment);
-  }
-
-  @Override
-  public void delete(Integer seq) throws Exception {
-    dao.delete(seq);
-  }
-
-  @Override
-  public List<CommentVO> listAll() throws Exception {
-    return dao.listAll();
+  public void create(CommentVO vo) throws Exception {
+    dao.create(vo);  
   }
   
   @Override
-  public List<CommentVO> listPage(int page) throws Exception {
-	    return dao.listPage(page);
+  public void update_fordelete(int seq_comment) throws Exception {
+    dao.update_fordelete(seq_comment);
+  }
+
+  @Override
+  public void delete(Integer seq_comment) throws Exception {
+    dao.delete(seq_comment);
+  }
+
+  @Override
+  public List<CommentVO> listPage(CommentVO vo) throws Exception {
+	    return dao.listPage(vo);
 	  }
-  @Override
-  public List<CommentVO> listCriteria(Criteria cri) throws Exception {
-
-    return dao.listCriteria(cri);
-  }
 
   @Override
   public int countPaging(Criteria cri) throws Exception {

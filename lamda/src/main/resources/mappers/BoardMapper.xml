@@ -5,9 +5,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="kr.ac.lamda.mapper.BoardMapper">
 
+
 <insert id="create">
 insert into tbl_board(seq, seq_user, parent, title, category, content) 
-values(tbl_board_seq.nextval,#{seq_user},#{parent}, #{title},#{category},#{content}")
+values(tbl_board_seq.nextval,#{seq_user},#{parent}, #{title},#{category},#{content})
 </insert>
 
  <select id="read" resultType="kr.ac.lamda.domain.BoardVO">
@@ -15,29 +16,36 @@ values(tbl_board_seq.nextval,#{seq_user},#{parent}, #{title},#{category},#{conte
  from tbl_user A, tbl_board B 
  where A.seq = B.seq_user and B.seq =#{seq_board}
  </select>
+ 
+ <select id="seq_afterwrite" resultType="int">
+ select seq from tbl_board 
+ where seq_user=#{seq_user} 
+ order by create_date desc
+ </select>
+
 
 <update id="views">
- update tbl_board set viewcnt=viewcnt+1 
- where seq = #{seq}
+update tbl_board set hit_view=hit_view+#{hit_view} 
+where seq=#{seq_board}
  </update>
  
  <update id="likes">
- update tbl_board set likecnt=likecnt+1 
- where seq = #{seq}
+ update tbl_board set hit_like=hit_like+1 
+ where seq = #{seq_board}
  </update>
 
-	<update id="update">
-	update tbl_board 
-	set title =#{title}, category=#{category}, content =#{content}, 
-	modify_date=to_char(sysdate, 'YYYY-MM-DD HH24:MI:SS') 
-	where seq=#{seq_board}
-	</update>
+<update id="update">
+update tbl_board 
+set title =#{title}, category=#{category}, content =#{content}, 
+modify_date=to_char(sysdate, 'YYYY-MM-DD HH24:MI:SS') 
+where seq=#{seq_board}
+</update>
 
-	<delete id="delete">
-		delete from tbl_board where seq = #{seq}
-	</delete>
+<delete id="delete">
+	delete from tbl_board where seq = #{seq}
+</delete>
 	
-<select id="listPage" resultType="BoardVO">
+<select id="listPage" resultType="kr.ac.lamda.domain.BoardVO">
  <![CDATA[
  select * from(
  	select rownum as R, C.* from(
@@ -48,47 +56,29 @@ values(tbl_board_seq.nextval,#{seq_user},#{parent}, #{title},#{category},#{conte
  	C where rownum <=(#{page}*10)) 
  where R >=(#{page}*10-9)
  ]]>
-	</select>
+</select>
 
-	<select id="listCriteria" resultType="BoardVO">
+<select id="listPage_id" resultType="kr.ac.lamda.domain.BoardVO">
  <![CDATA[
- select 
-   seq, title, content, writer, regdate, viewcnt , likecnt, replycnt
- from 
-   tbl_board 
- where seq > 0 
- order by seq desc, regdate desc
- limit #{pageStart}, #{perPageNum}
+ select * from(
+ 	select rownum as R, C.* from(
+ 		select 0, A.user_id, B.* 
+ 		from tbl_user A, tbl_board B 
+ 		where A.seq = B.seq_user and B.seq_user=#{seq_user}
+ 		order by B.create_date desc) 
+ 	C where rownum <=(#{page}*10)) 
+ where R >=(#{page}*10-9)
  ]]>
-	</select>
+</select>
 
 
-
-
-
-
-	<select id="countPaging" resultType="int">
+<select id="countPaging" resultType="int">
  <![CDATA[
  select 
    count(seq) 
  from 
    tbl_board 
- where 
-   seq > 0 
  ]]>
-	</select>
+</select>
 
-
-
-	
-
-<update id="updateReplyCnt">
-  update tbl_board set replycnt = replycnt + #{amount} where seq = #{seq}
-</update>
-
-
-<update id="updateViewCnt">
-  update tbl_board set viewcnt = viewcnt +1 where seq = #{seq}
-</update>
- 
 </mapper>

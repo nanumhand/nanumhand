@@ -13,10 +13,21 @@ public class UserVO {
   private String likelang;
   private String img_url;
   private int errorcnt;
+  private int banned_time;
   private Date banned_date;
   
 
-  public int getSeq() {
+  public int getBanned_time() {
+	return banned_time;
+}
+
+
+public void setBanned_time(int banned_time) {
+	this.banned_time = banned_time;
+}
+
+
+public int getSeq() {
 	return seq;
 }
 
@@ -120,6 +131,6 @@ public void setBanned_date(Date banned_date) {
   public String toString() {
     return "UserVO [seq=" + seq + ", user_id=" + user_id + ", password=" + password + ", email=" + email + 
     		", join_date=" + join_date + ", drop_date=" + drop_date + ", likelang=" + likelang + ", img_url=" + img_url + 
-    		", errorcnt=" + errorcnt + ", banned_date=" + banned_date + "]";
+    		", errorcnt=" + errorcnt + ", banned_time=" + banned_time +", banned_date=" + banned_date + "]";
   }
 }

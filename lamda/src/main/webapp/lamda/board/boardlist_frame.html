@@ -1,0 +1,37 @@
+<html>
+<head>
+<style>
+.background {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.absolute10 {
+	z-index : 10;
+	position:absolute;
+	left:420px;
+	top:0px;
+}
+.absolute11 {
+	z-index : 11;
+	position:absolute;
+	left:1125px;;
+	top:0px;
+}
+
+.hcenter {
+  position: absolute;
+  top: 40%;
+  transform: translate(0%,-40%);
+  height: 85%;
+}
+</style>
+</head>
+<body><div>
+<iframe id="board_list" class="hcenter background" scrolling="no" width="415px" height="550px" style="text-align:center; border:0px;" src="/lamda/board/boardlist.jsp?seq_user=0&pageNum=1"></iframe></div>
+<div>
+<iframe id="board_contents" class="absolute10" scrolling="no" style="text-align:center;width:720px; height:750px; border:0px;" src=""></iframe></div>
+<div>
+<iframe id="comment_list" class="hcenter absolute11" width="520px" height="550px" style="text-align:center; border:0px;overflow-y: auto;
+ overflow-x: hidden; " src=""></iframe></div>
+</body>
+</html>
