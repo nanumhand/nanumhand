@@ -18,24 +18,26 @@ values(tbl_board_seq.nextval,#{seq_user},#{parent}, #{title},#{category},#{conte
 
 <update id="views">
  update tbl_board set viewcnt=viewcnt+1 
- where bno = #{bno}
+ where seq = #{seq}
  </update>
  
  <update id="likes">
  update tbl_board set likecnt=likecnt+1 
- where bno = #{bno}
+ where seq = #{seq}
  </update>
 
 	<update id="update">
-		update tbl_board set title =#{title}, content =#{content}
-		where bno = #{bno}
+	update tbl_board 
+	set title =#{title}, category=#{category}, content =#{content}, 
+	modify_date=to_char(sysdate, 'YYYY-MM-DD HH24:MI:SS') 
+	where seq=#{seq_board}
 	</update>
 
 	<delete id="delete">
-		delete from tbl_board where bno = #{bno}
+		delete from tbl_board where seq = #{seq}
 	</delete>
 	
-	<select id="listAll" resultType="kr.ac.lamda.domain.BoardVO">
+<select id="listPage" resultType="BoardVO">
  <![CDATA[
  select * from(
  	select rownum as R, C.* from(
@@ -43,31 +45,19 @@ values(tbl_board_seq.nextval,#{seq_user},#{parent}, #{title},#{category},#{conte
  		from tbl_user A, tbl_board B 
  		where A.seq = B.seq_user start with B.parent=0 connect by prior B.seq = B.parent 
  		order siblings by B.create_date desc) 
- 	C where rownum <=#{rowE}) 
- where R >=#{rowS}
- ]]>
-	</select>
-
-	<select id="listPage" resultType="BoardVO">
- <![CDATA[
- select 
-   bno, title, content, writer, regdate, viewcnt ,likecnt, replycnt
- from 
-   tbl_board 
- where bno > 0 
- order by bno desc, regdate desc
- limit #{page}, 10
+ 	C where rownum <=(#{page}*10)) 
+ where R >=(#{page}*10-9)
  ]]>
 	</select>
 
 	<select id="listCriteria" resultType="BoardVO">
  <![CDATA[
  select 
-   bno, title, content, writer, regdate, viewcnt , likecnt, replycnt
+   seq, title, content, writer, regdate, viewcnt , likecnt, replycnt
  from 
    tbl_board 
- where bno > 0 
- order by bno desc, regdate desc
+ where seq > 0 
+ order by seq desc, regdate desc
  limit #{pageStart}, #{perPageNum}
  ]]>
 	</select>
@@ -80,79 +70,25 @@ values(tbl_board_seq.nextval,#{seq_user},#{parent}, #{title},#{category},#{conte
 	<select id="countPaging" resultType="int">
  <![CDATA[
  select 
-   count(bno) 
+   count(seq) 
  from 
    tbl_board 
  where 
-   bno > 0 
+   seq > 0 
  ]]>
 	</select>
 
 
 
-	<sql id="search">
-		<if test="searchType != null">
-			<if test="searchType == 't'.toString()">
-				and title like CONCAT('%', #{keyword}, '%')
-			</if>
-			<if test="searchType == 'c'.toString()">
-				and content like CONCAT('%', #{keyword}, '%')
-			</if>
-			<if test="searchType == 'w'.toString()">
-				and writer like CONCAT('%', #{keyword}, '%')
-			</if>
-			<if test="searchType == 'tc'.toString()">
-				and ( title like CONCAT('%', #{keyword}, '%') OR content like
-				CONCAT('%', #{keyword}, '%'))
-			</if>
-			<if test="searchType == 'cw'.toString()">
-				and ( content like CONCAT('%', #{keyword}, '%') OR writer like
-				CONCAT('%', #{keyword}, '%'))
-			</if>
-			<if test="searchType == 'tcw'.toString()">
-				and ( title like CONCAT('%', #{keyword}, '%')
-				OR
-				content like CONCAT('%', #{keyword}, '%')
-				OR
-				writer like CONCAT('%', #{keyword}, '%'))
-			</if>
-		</if>
-	</sql>
+	
 
-	<select id="listSearch" resultType="BoardVO">
-<![CDATA[  
-  select * 
-  from tbl_board 
-  where bno > 0 
-]]>
-
-		<include refid="search"></include>
-  
-<![CDATA[    
-  order by bno desc
-  limit #{pageStart}, #{perPageNum}
-]]>
-	</select>
-
-	<select id="listSearchCount" resultType="int">
-<![CDATA[  
-  select count(bno) 
-  from tbl_board 
-  where bno > 0 
-]]>
-		<include refid="search"></include>
-
-	</select>
-
-
- 
 <update id="updateReplyCnt">
-  update tbl_board set replycnt = replycnt + #{amount} where bno = #{bno}
+  update tbl_board set replycnt = replycnt + #{amount} where seq = #{seq}
 </update>
 
 
 <update id="updateViewCnt">
-  update tbl_board set viewcnt = viewcnt +1 where bno = #{bno}
+  update tbl_board set viewcnt = viewcnt +1 where seq = #{seq}
 </update>
  
 </mapper>
