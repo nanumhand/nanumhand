@@ -1,0 +1,127 @@
+{
+ "name": "D3 cook",
+	"children": [
+		{"name" : "SVG", "children" : [
+			{"name" : "start svg"},
+			{"name" : "Simple Shapes"},
+			{"name" : "Styling SVG Elements"},
+			{"name" : "Layering and Drawing Order"},
+			{"name" : "Transparency"}
+			]
+		},
+		{"name" : "Data", "children" : [
+			{"name" : "Generating Page Elements"},
+			{"name" : "Chaining Methods"},
+			{"name" : "Going Chainless"},
+			{"name" : "Data", "children" : [
+				{"name" : "Loading CSV data"},
+				{"name" : "Handling Data Loading Errors"},
+				{"name" : "Loading JSON data"}
+				]
+			},
+			{"name" : "Please Make Your Selection"},
+			{"name" : "Bound and Determined"},
+			{"name" : "Using Your Data"},
+			{"name" : "Beyond Text"}
+			]
+		},
+		{"name" : "Drawing with Data", "children" : [
+			{"name" : "Drawing divs", "children" : [
+				{"name" : "Setting Attributes"},
+				{"name" : "A Note on Classes"},
+				{"name" : "Back to the Bars"},
+				{"name" : "Setting Styles"}
+				]
+			},
+			{"name" : "The Power of data()", "children" : [
+				{"name" : "Random Data"}
+				]
+			},
+			{"name" : "Drawing SVGs", "children" : [
+				{"name" : "Create the SVG"},
+				{"name" : "Data-Driven Shapes"},
+				{"name" : "Pretty Colors, Oooh!"}
+				]
+			},
+			{"name" : "Making a Bar Chart", "children" : [
+				{"name" : "The Old Chart"},
+				{"name" : "The New Chart"},
+				{"name" : "Color"},
+				{"name" : "Labels"}
+				]
+			},
+			{"name" : "Making a Scatterplot", "children" : [
+				{"name" : "The Data"},
+				{"name" : "The Scatterplot"},
+				{"name" : "Size"},
+				{"name" : "Labels"}
+				]
+			}
+			]
+		},
+		{"name" : "Scales", "children" : [
+			{"name" : "Domains and Ranges"},
+			{"name" : "Creating a Scale"},
+			{"name" : "Scaling the Scatterplot", "children" : [
+				{"name" : "Incorporating Scaled Values"}
+				]
+			},
+			{"name" : "Refining the Plot"}
+			]
+		},
+		{"name" : "Axes", "children" : [
+			{"name" : "Setting Up an Axis"},
+			{"name" : "Cleaning it Up"},
+			{"name" : "Check for Ticks"},
+			{"name" : "Y Not?"},
+			{"name" : "Final Touches"}
+			]
+		},
+		{"name" : "Updates, Transitions, and Motion", "children" : [
+			{"name" : "Modernizing the Bar Chart"},
+			{"name" : "Updating Data", "children" : [
+				{"name" : "Updating the Visuals"}
+				]
+			},
+			{"name" : "Transitions", "children" : [
+				{"name" : "Randomizing the Data"},
+				{"name" : "Updating Scales"},
+				{"name" : "Updating Axes"},
+				{"name" : "each() Transition Starts and Ends"}
+				]
+			},
+			{"name" : "Other Kinds of Data Updates", "children" : [
+				{"name" : "Adding Values(and Elements)"},
+				{"name" : "Removing Values(and Elements)"},
+				{"name" : "Data Joins with Keys"},
+				{"name" : "Add and Remove: Combo Platter"},
+				{"name" : "Recap"}
+				]
+			}
+			]
+		},
+		{"name" : "Interactivity", "children" : [
+			{"name" : "Introducing Behaviors", "children" : [
+				{"name" : "Hover to Highlight"}
+				]
+			},
+			{"name" : "Grouping SVG Elements", "children" : [
+				{"name" : "Click to Sort"}
+				]
+			},
+			{"name" : "Tooltips", "children" : [
+				{"name" : "Default Browser Tooltips"},
+				{"name" : "SVG Element Tooltips"},
+				{"name" : "HTML div Tooltips"}
+				]
+			}
+			]
+		},
+		{"name" : "Layouts", "children" : [
+			{"name" : "Pie Layout"},
+			{"name" : "Stack Layout"},
+			{"name" : "Force Layout"}
+			]
+		}
+	]
+}

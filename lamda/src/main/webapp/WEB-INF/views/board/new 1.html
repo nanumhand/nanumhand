@@ -1,0 +1,53 @@
+﻿<%@page contentType="text/html" pageEncoding="utf-8"%>
+<%@ page import="java.io.*, java.sql.*, javax.sql.*" %>
+<html ng-app>
+<head>
+<style>
+#absolute1, #absolute2
+{ position:absolute; }
+
+#absolute2 {
+	top:2px;
+	left:17px;
+	z-index: 2;
+}
+#absolute1{
+	top:19px;
+	left:19px;
+	z-index: 1;
+}
+
+.myColor1 {color:#F7A363;}
+.myColor2 {color:#000000;}
+
+.center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 48%;
+  height: 59%;
+}
+</style>
+</head>
+<body>
+<table border="1" cellpadding="1" cellspacing="1" style="width:350px">
+	<tbody>
+		<tr>
+			<td style="text-align:center">아&nbsp; 이 &nbsp; 디</td>
+			<td><input name="user_id" size="20" type="text" /></td>
+		</tr>
+		<tr>
+			<td style="text-align:center">비 밀 번 호</td>
+			<td><input name="password" size="20" type="text" /></td>
+		</tr>
+		<tr>
+			<td style="text-align:center">이메일주소</td>
+			<td><input name="email" size="40" type="text" value="nanumhand@naver.com" /></td>
+		</tr>
+	</tbody>
+</table>
+
+<p>Log into Lamda</p>
+
+<p>회원가입을 원하시면 여기를 눌러주세요.</p>
