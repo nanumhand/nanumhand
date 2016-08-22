@@ -24,12 +24,12 @@ values(tbl_board_seq.nextval,#{seq_user},#{parent}, #{title},#{category},#{conte
  </select>
 
 
-<update id="views">
+<update id="updateHits">
 update tbl_board set hit_view=hit_view+#{hit_view} 
 where seq=#{seq_board}
  </update>
  
- <update id="likes">
+ <update id="updateLike">
  update tbl_board set hit_like=hit_like+1 
  where seq = #{seq_board}
  </update>
@@ -42,7 +42,7 @@ where seq=#{seq_board}
 </update>
 
 <delete id="delete">
-	delete from tbl_board where seq = #{seq}
+	delete from tbl_board where seq = #{seq_board}
 </delete>
 	
 <select id="listPage" resultType="kr.ac.lamda.domain.BoardVO">
@@ -51,15 +51,19 @@ where seq=#{seq_board}
  	select rownum as R, C.* from(
  		select level as indent, A.user_id, B.* 
  		from tbl_user A, tbl_board B 
- 		where A.seq = B.seq_user start with B.parent=0 connect by prior B.seq = B.parent 
+ 		where A.seq = B.seq_user  
+ 		start with B.parent=0 
+ 		connect by prior B.seq = B.parent 
  		order siblings by B.create_date desc) 
- 	C where rownum <=(#{page}*10)) 
- where R >=(#{page}*10-9)
+ 	C where rownum <=#{rowE}) 
+ where R >=#{rowS}
  ]]>
 </select>
 
 <select id="listPage_id" resultType="kr.ac.lamda.domain.BoardVO">
  <![CDATA[
+
+ 
  select * from(
  	select rownum as R, C.* from(
  		select 0, A.user_id, B.* 

@@ -50,6 +50,8 @@ public class BoardController {
     model.addAttribute(service.read(seq_board));
   }
   
+
+
   
   @RequestMapping(value = "/read", method = RequestMethod.GET)
   public void read(@RequestParam("seq_board") int seq_board, Model model) throws Exception {
@@ -90,7 +92,7 @@ public class BoardController {
 
     logger.info(cri.toString());
 
-    model.addAttribute("list", service.listPage(cri.getPage()));
+    model.addAttribute("list", service.listPage(cri));
     PageMaker pageMaker = new PageMaker();
     pageMaker.setCri(cri);
 

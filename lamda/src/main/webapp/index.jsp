@@ -5,6 +5,24 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
+
+<%@ page import="java.io.*, java.sql.*, javax.sql.*" %>
+<%@ page session="false" %>
+<% 
+Class.forName("oracle.jdbc.OracleDriver"); // 자바 DB connect 드라이버 클래스
+Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@192.168.48.128:1521:oraedu", "red_my11", "hardhard");
+//(root사용자/koposw11암호)로 mysql DB에 접속한다.
+Statement stmt = conn.createStatement(); //connection 객체 conn에 statement 메소드를 만들고, stmt로 객체로 받는다.
+ResultSet rset=stmt.executeQuery("select * from tab"); // stmt객체의 executeQuery메소드를 실행시켜 결과값을 rset에 넣는다.
+while(rset.next()){ //rset에 입력되는 값이 null이면 while문을 탈출
+	out.println("값 : "+rset.getString(1)); //getString("칼럼명" 또는 칼럼index) : 1은 첫번째 칼럼
+}
+rset.close(); //반드시 닫아줘야한다.
+stmt.close();//반드시 닫아줘야한다.
+conn.close();//반드시 닫아줘야한다.
+
+
+%>
 <html>
 	<head>
 		<meta charset="utf-8">

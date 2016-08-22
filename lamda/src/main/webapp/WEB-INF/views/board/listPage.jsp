@@ -4,9 +4,21 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page session="false"%>
 
-<%@include file="../include/header.jsp"%>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <!-- Bootstrap 3.3.4 -->
+    <link href="/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- Font Awesome Icons -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!-- Ionicons -->
+    <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+    <!-- Theme style -->
+    <link href="/resources/dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
 
+ <link href="/resources/dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
+<script src="/resources/plugins/jQuery/jquery-2.1.4.min.js"></script>
 <!-- Main content -->
+<body class="skin-blue sidebar-mini">
+<div class="content-wrapper">
 <section class="content">
 	<div class="row">
 		<!-- left column -->
@@ -38,15 +50,15 @@
 						<c:forEach items="${list}" var="boardVO">
 
 							<tr>
-								<td>${boardVO.bno}</td>
+								<td>${boardVO.seq}</td>
 								<td><a
-									href='/board/readPage${pageMaker.makeQuery(pageMaker.cri.page) }&bno=${boardVO.bno}'>
+									href='/board/readPage${pageMaker.makeQuery(pageMaker.cri.page) }&bno=${boardVO.seq}'>
 										${boardVO.title}</a></td>
-								<td>${boardVO.writer}</td>
+								<td>${boardVO.user_id}</td>
 								<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm"
-										value="${boardVO.regdate}" /></td>
-								<td><span class="badge bg-red">${boardVO.viewcnt }</span></td>
-								<td><span class="badge bg-red">${boardVO.likecnt }</span></td>
+										value="${boardVO.create_date}" /></td>
+								<td><span class="badge bg-red">${boardVO.hit_view }</span></td>
+								<td><span class="badge bg-red">${boardVO.hit_like }</span></td>
 							</tr>
 
 						</c:forEach>
@@ -58,36 +70,14 @@
 
 				<div class="box-footer">
 
-					<%-- <div class="text-center">
-						<ul class="pagination">
-
-							<c:if test="${pageMaker.prev}">
-								<li><a
-									href="listPage${pageMaker.makeQuery(pageMaker.startPage - 1) }">&laquo;</a></li>
-							</c:if>
-
-							<c:forEach begin="${pageMaker.startPage }"
-								end="${pageMaker.endPage }" var="idx">
-								<li
-									<c:out value="${pageMaker.cri.page == idx?'class =active':''}"/>>
-									<a href="listPage${pageMaker.makeQuery(idx)}">${idx}</a>
-								</li>
-							</c:forEach>
-
-							<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-								<li><a
-									href="listPage${pageMaker.makeQuery(pageMaker.endPage +1) }">&raquo;</a></li>
-							</c:if>
-
-						</ul>
-					</div> --%>
+				
 
 
 					<div class="text-center">
 						<ul class="pagination">
 
 							<c:if test="${pageMaker.prev}">
-								<li><a href="${pageMaker.startPage - 1}">&laquo;</a></li>
+								<li><a href="${pageMaker.startPage - 1}"><<</a></li>
 							</c:if>
 
 							<c:forEach begin="${pageMaker.startPage }"
@@ -100,7 +90,7 @@
 
 							<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
 								<li><a
-									href="${pageMaker.endPage +1}">&raquo;</a></li>
+									href="${pageMaker.endPage +1}">>></a></li>
 							</c:if>
 
 						</ul>
@@ -119,8 +109,8 @@
 <!-- /.content -->
 
 <form id="jobForm">
-  <input type='hidden' name="page" value=${pageMaker.cri.perPageNum}>
-  <input type='hidden' name="perPageNum" value=${pageMaker.cri.perPageNum}>
+  <input type='hidden' name="page" value="${pageMaker.cri.page}">
+  <%-- <input type='hidden' name="perPageNum" value="${pageMaker.cri.perPageNum}"/> --%>
 </form>
 
 
@@ -144,5 +134,5 @@
 	});
 	
 </script>
-
-<%@include file="../include/footer.jsp"%>
+</div>
+</body>

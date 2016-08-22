@@ -2,12 +2,14 @@ package kr.ac.lamda.domain;
 
 public class Criteria {
 
-	private int page;	
-	private int perPageNum;
+	private int page;
+	private int rowS;
+	private int rowE;
 	
 	public Criteria(){
 		this.page = 1;
-		this.perPageNum = 10;
+		this.rowS = 1;
+		this.rowE = 10;
 	}
 
 	public void setPage(int page){
@@ -20,14 +22,16 @@ public class Criteria {
 		this.page = page;
 	}
 	
-	public void setPerPageNum(int perPageNum){
+	public void setRowS(int page){
 		
-		if(perPageNum <= 0 || perPageNum > 100){
-			this.perPageNum = 10;
+			this.rowS=page*10-9;
 			return;
-		}
+	}
+	
+	public void setRowE(int page){
 		
-		this.perPageNum = perPageNum;
+		this.rowE=page*10;
+		return;
 	}
 	
 	public int getPage() {
@@ -37,18 +41,18 @@ public class Criteria {
 	//method for MyBatis SQL Mapper - 
 	public int getPageStart() {
 		
-		return (this.page -1)* perPageNum;
+		return (this.page -1)* 10;
 	}
 	
 	//method for MyBatis SQL Mapper 
 	public int getPerPageNum(){
 		
-		return this.perPageNum;
+		return 10;
 	}
 
 	@Override
 	public String toString() {
-		return "Criteria [page=" + page + ", perPageNum=" + perPageNum + "]";
+		return "Criteria [page=" + page + ", rowS=" + rowS + ", rowE=" + rowE + "]";
 	}
 }
 

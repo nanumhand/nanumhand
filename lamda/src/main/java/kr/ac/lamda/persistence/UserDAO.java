@@ -22,8 +22,6 @@ public interface UserDAO {
   
   public void plus_errorcnt(String user_id) throws Exception;
   
-  public void banned_date(String user_id) throws Exception;
-
-  
+  public void banned_date(String user_id) throws Exception; 
   
  }

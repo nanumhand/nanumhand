@@ -16,7 +16,7 @@ public interface BoardService {
 
 	  public void delete(Integer seq_board) throws Exception;
 
-	  public List<BoardVO> listPage(int page) throws Exception;
+	  public List<BoardVO> listPage(Criteria cri) throws Exception;
 	  
 	  public int countPaging(Criteria cri) throws Exception;
 	  

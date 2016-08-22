@@ -14,9 +14,27 @@ public class BoardVO {
   private Date modify_date;
   private int hit_view;
   private int hit_like;
+  private int indent;
+  private String user_id;
 
 
-  public Integer getSeq() {
+  public int getIndent() {
+	return indent;
+}
+
+public void setIndent(int indent) {
+	this.indent = indent;
+}
+
+public String getUser_id() {
+	return user_id;
+}
+
+public void setUser_id(String user_id) {
+	this.user_id = user_id;
+}
+
+public Integer getSeq() {
 	return seq;
 }
 
@@ -100,7 +118,8 @@ public void setHit_like(int hit_like) {
   public String toString() {
     return "BoardVO [seq=" + seq + ", parent=" + parent + ", seq_user=" + seq_user + ", title=" + title + 
     		", category=" + category + ", create_date=" + create_date + ", modify_date=" + modify_date + 
-    		", hit_view=" + hit_view + ", hit_like=" + hit_like + ", content=" + content + "]";
+    		", hit_view=" + hit_view + ", hit_like=" + hit_like + ", content=" + content + 
+    		", user_id=" + user_id + ", indent=" + indent + "]";
   }
 
 }

@@ -51,15 +51,9 @@ public class BoardDAOImpl implements BoardDAO {
   }
 
   @Override
-  public List<BoardVO> listPage(int page) throws Exception {
+  public List<BoardVO> listPage(Criteria cri) throws Exception {
 
-    if (page <= 0) {
-      page = 1;
-    }
-
-    page = (page - 1) * 10;
-
-    return session.selectList(namespace + ".listPage", page);
+    return session.selectList(namespace + ".listPage", cri);
   }
   
 
