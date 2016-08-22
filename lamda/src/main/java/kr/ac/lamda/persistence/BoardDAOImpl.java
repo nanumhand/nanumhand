@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 import kr.ac.lamda.domain.BoardVO;
 import kr.ac.lamda.domain.Criteria;
+import kr.ac.lamda.domain.PageMaker;
 
 
 @Repository
@@ -17,6 +18,10 @@ public class BoardDAOImpl implements BoardDAO {
 
   @Inject
   private SqlSession session;
+  
+  @Inject
+  private PageMaker pagemaker;
+  
 
   private static String namespace = "kr.ac.lamda.mapper.BoardMapper";
 
@@ -52,7 +57,8 @@ public class BoardDAOImpl implements BoardDAO {
 
   @Override
   public List<BoardVO> listPage(Criteria cri) throws Exception {
-
+	
+	
     return session.selectList(namespace + ".listPage", cri);
   }
   

@@ -52,7 +52,7 @@
 							<tr>
 								<td>${boardVO.seq}</td>
 								<td><a
-									href='/board/readPage${pageMaker.makeQuery(pageMaker.cri.page) }&bno=${boardVO.seq}'>
+									href='/board/readPage${pageMaker.makeQuery(pageMaker.cri.page) }&seq_board=${boardVO.seq}'>
 										${boardVO.title}</a></td>
 								<td>${boardVO.user_id}</td>
 								<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm"

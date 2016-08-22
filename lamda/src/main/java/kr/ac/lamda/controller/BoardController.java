@@ -50,55 +50,52 @@ public class BoardController {
     model.addAttribute(service.read(seq_board));
   }
   
+ @RequestMapping(value = "/readPage", method = RequestMethod.GET)
+ public void read(@RequestParam("seq_board") int seq_board, @ModelAttribute("cri") Criteria cri, Model model) throws Exception {
 
+   model.addAttribute(service.read(seq_board));
+   service.updateHits(seq_board);
+ }
 
-  
-  @RequestMapping(value = "/read", method = RequestMethod.GET)
-  public void read(@RequestParam("seq_board") int seq_board, Model model) throws Exception {
+ @RequestMapping(value = "/removePage", method = RequestMethod.POST)
+ public String remove(@RequestParam("seq_board") int seq_board, Criteria cri, RedirectAttributes rttr) throws Exception {
 
-    model.addAttribute(service.read(seq_board));
-    service.updateHits(seq_board);
-  }
+   service.delete(seq_board);
 
-  @RequestMapping(value = "/delete", method = RequestMethod.POST)
-  public String remove(@RequestParam("seq_board") int seq_board, RedirectAttributes rttr) throws Exception {
+   rttr.addAttribute("page", cri.getPage());
+   rttr.addAttribute("perPageNum", cri.getPerPageNum());
+   rttr.addFlashAttribute("msg", "SUCCESS");
 
-    service.delete(seq_board);
+   return "redirect:/board/listPage";
+ }
 
-    rttr.addFlashAttribute("msg", "SUCCESS");
-    rttr.addAttribute("page", 1);
+ @RequestMapping(value = "/modifyPage", method = RequestMethod.GET)
+ public void modifyPagingGET(@RequestParam("seq_board") int seq_board, @ModelAttribute("cri") Criteria cri, Model model)
+     throws Exception {
 
-    return "redirect:/board/listPage";
-  }
+   model.addAttribute(service.read(seq_board));
+ }
 
- 
-
-  @RequestMapping(value = "/update", method = RequestMethod.POST)
-  public String modifyPOST(BoardVO vo, RedirectAttributes rttr) throws Exception {
-
-    logger.info("mod post............");
-
-    service.update(vo);
-    rttr.addFlashAttribute("msg", "SUCCESS");
-    rttr.addAttribute("page", 1);
-
-    return "redirect:/board/listPage";
-  }
 
 
 
   @RequestMapping(value = "/listPage", method = RequestMethod.GET)
   public void listPage(@ModelAttribute("cri") Criteria cri, Model model) throws Exception {
 
-    logger.info(cri.toString());
-
+	int page = (cri.getPage()==0)? 1: cri.getPage();
+	cri.setPage(page);
+	cri.setRowS(page);
+	cri.setRowE(page);
+	int totalcount = service.countPaging(cri);
+    logger.info(cri.toString());    
+    logger.info(Integer.toString(totalcount));
+    
     model.addAttribute("list", service.listPage(cri));
     PageMaker pageMaker = new PageMaker();
     pageMaker.setCri(cri);
 
-    pageMaker.setTotalCount(service.countPaging(cri));
-
-    model.addAttribute("pageMaker", pageMaker);
+    pageMaker.setTotalCount(totalcount);
+    model.addAttribute("pageMaker", pageMaker);    
   }
 
  
