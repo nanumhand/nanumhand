@@ -77,20 +77,20 @@
 						<ul class="pagination">
 
 							<c:if test="${pageMaker.prev}">
-								<li><a href="${pageMaker.startPage - 1}"><<</a></li>
+								<a href="/board/listPage?page=${pageMaker.startPage - 1}"><<</a>
 							</c:if>
 
 							<c:forEach begin="${pageMaker.startPage }"
 								end="${pageMaker.endPage }" var="idx">
-								<li
-									<c:out value="${pageMaker.cri.page == idx?'class =active':''}"/>>
+								
+									<%-- <c:out value="${pageMaker.cri.page == idx?'class =active':''}"/> --%>
 									<a href="/board/listPage?page=${idx}">${idx}</a>
-								</li>
+								
 							</c:forEach>
 
 							<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-								<li><a
-									href="${pageMaker.endPage +1}">>></a></li>
+								<a
+									href="/board/listPage?page=${pageMaker.endPage +1}">>></a>
 							</c:if>
 
 						</ul>
@@ -114,7 +114,7 @@
 </form>
 
 
-<script>
+<!-- <script>
 	var result = '${msg}';
 
 	if (result == 'SUCCESS') {
@@ -133,6 +133,6 @@
 		jobForm.submit();
 	});
 	
-</script>
+</script> -->
 
 </body>
