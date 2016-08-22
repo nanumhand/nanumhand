@@ -1,7 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-  pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page session="false"%>
 
-<%@include file="../include/header.jsp" %>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <!-- Bootstrap 3.3.4 -->
+    <link href="/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- Font Awesome Icons -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!-- Ionicons -->
+    <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+    <!-- Theme style -->
+    <link href="/resources/dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+
+ <link href="/resources/dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
+<script src="/resources/plugins/jQuery/jquery-2.1.4.min.js"></script>
+<!-- Main content -->
+<body class="skin-blue sidebar-mini">
 
     <!-- Main content -->
     <section class="content">
@@ -16,7 +32,7 @@
 
  <form role="form" action="modifyPage" method="post">
     
-    <input type='hidden' name='bno' value ="${boardVO.bno}">
+    <input type='hidden' name='bno' value ="${boardVO.seq}">
     <input type='hidden' name='page' value ="${cri.page}">
     <input type='hidden' name='perPageNum' value ="${cri.perPageNum}">
     
@@ -36,7 +52,7 @@
     <div class="form-group">
       <label for="exampleInputEmail1" >Writer</label>
       <input type="text" name="writer" class="form-control" 
-        value="${boardVO.writer}" readonly="readonly">
+        value="${boardVO.user_id}" readonly="readonly">
     </div>
   </div><!-- /.box-body -->
 
@@ -82,7 +98,6 @@ $(document).ready(function(){
  
       </div>   <!-- /.row -->
     </section><!-- /.content -->
-    </div><!-- /.content-wrapper -->
-    
-<%@include file="../include/footer.jsp" %>
+
+
   

@@ -18,7 +18,7 @@
 <script src="/resources/plugins/jQuery/jquery-2.1.4.min.js"></script>
 <!-- Main content -->
 <body class="skin-blue sidebar-mini">
-<div class="content-wrapper">
+
 <section class="content">
 	<div class="row">
 		<!-- left column -->
@@ -84,7 +84,7 @@
 								end="${pageMaker.endPage }" var="idx">
 								<li
 									<c:out value="${pageMaker.cri.page == idx?'class =active':''}"/>>
-									<a href="${idx}">${idx}</a>
+									<a href="/board/listPage?page=${idx}">${idx}</a>
 								</li>
 							</c:forEach>
 
@@ -134,5 +134,5 @@
 	});
 	
 </script>
-</div>
+
 </body>
